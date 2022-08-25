@@ -1,0 +1,16 @@
+Для импорта (распаковки данных из "adventureworks.dump" в DBeaver), 
+используем следующие команды, где первый "adventureworks"
+- название базы данных в DBeaver:
+
+        matu@pc:$ cd /etc/postgresql/12/main
+        matu@pc:/etc/postgresql/12/main$ pg_restore -h localhost -U postgres -d adventureworks -v "/home/matu/HSE/SQL/adventureworks.dump"
+
+
+
+Для экспорта (упаковки данных из DBeaver (базы данных "adventureworks") в файл 
+"d.dump"), используем следующую команду:
+
+        matu@pc:/etc/postgresql/12/main$ pg_dump -h localhost -U postgres -F c -b -v -f "/home/matu/HSE/SQL/d.dump" adventureworks
+
+
+

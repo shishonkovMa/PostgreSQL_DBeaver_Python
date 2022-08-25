@@ -1,0 +1,43 @@
+CREATE TABLE public.zone_ (
+	zone_id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
+	name_ varchar NULL,
+	designation varchar NULL,
+	opening_date date NULL,
+	closing_date date null,
+	CONSTRAINT zone_check CHECK ((opening_date < closing_date)),
+	CONSTRAINT zone_pk PRIMARY KEY (zone_id)
+);
+
+
+CREATE TABLE public.employee (
+	employee_id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
+	name_ varchar NULL,
+	surname varchar NULL,
+	date_of_birth date NULL,
+	gender varchar NULL,
+	status varchar NULL,
+	salary real NULL,
+	experience_description varchar NULL,
+	CONSTRAINT employee_pk PRIMARY KEY (employee_id)
+);
+
+CREATE TABLE public.participant (
+	participant_id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
+	name_ varchar NULL,
+	surname varchar NULL,
+	date_of_birth date NULL,
+	preferred_zone int4 NULL,
+	CONSTRAINT participant_pk PRIMARY KEY (participant_id),
+	CONSTRAINT participant_fk FOREIGN KEY (preferred_zone) REFERENCES public.zone_(zone_id)
+);
+
+CREATE TABLE public.employeezones (
+	emp_id int4 NOT NULL,
+	zone_id int4 NOT NULL,
+	emp_started_zone date NULL,
+	emp_ended_zone date NULL,
+	CONSTRAINT employeezones_pk PRIMARY KEY (emp_id, zone_id),
+	CONSTRAINT employeezones_check CHECK ((emp_started_zone < emp_ended_zone)),
+	CONSTRAINT employeezones_fk_0 FOREIGN KEY (emp_id) REFERENCES public.zone_(zone_id),
+	CONSTRAINT employeezones_fk_1 FOREIGN KEY (zone_id) REFERENCES public.employee(employee_id)
+);
